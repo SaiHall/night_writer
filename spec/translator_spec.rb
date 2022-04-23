@@ -46,4 +46,9 @@ describe Translator do
        "z" => "0..000"}
     expect(@translator.csv_hash).to eq(expected)
   end
+
+  it 'can translate given text into braille' do
+    @translator.update_hash
+    expect(@translator.translate("a")).to eq(['0.', '..', '..'])
+  end
 end
