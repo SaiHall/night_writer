@@ -37,15 +37,19 @@ describe InputOutput do
     before(:each) do
       @input_output = InputOutput.new('message.txt', 'braille.txt')
       @input_output.read_incoming
+      @input_output.set_outgoing_text(@input_output.incoming_text)
     end
 
     it 'can set outgoing text and read it' do
-      @input_output.set_outgoing_text(@input_output.incoming_text)
       expect(@input_output.outgoing_text).to eq(@input_output.incoming_text)
       expect(@input_output.outgoing_text).to eq("Do not panic, this is merely a sample.\n")
     end
-    # it 'can write outgoing contents to a new file' do #Commented out, likely a later down test
-    #   expect(File.read(@input_output.outgoing)).to eq("Do not panic, this is merely a sample.\n")
-    # end
+    it 'can write outgoing contents to a new file' do #Commented out, likely a later down test
+      @input_output.write
+      new_file = File.open(@input_output.outgoing_file)
+      new_file_contents = new_file.read
+      new_file.close
+      expect(new_file_contents).to eq("Do not panic, this is merely a sample.\n")
+    end
   end
 end
