@@ -66,5 +66,20 @@ describe InputOutput do
       @input_output.set_outgoing_text(@translator.translate(@input_output.incoming_text))
       expect(@input_output.outgoing_text).to eq(['00', '.0', '..'])
     end
+
+    it 'can set translated, formatted braille to outgoing text' do
+      @translator.translate(@input_output.incoming_text)
+      @input_output.set_outgoing_text(@translator.format)
+      expect(@input_output.outgoing_text).to eq(['00\n', '.0\n', '..\n'])
+    end
+
+    it 'can translate incoming text from within input output class' do
+      expect(@input_output.translate_incoming).to eq(['00\n', '.0\n', '..\n'])
+    end
+
+    it 'can set translated incoming text as out going text' do
+      @input_output.set_outgoing_text(@input_output.translate_incoming)
+      expect(@input_output.outgoing_text).to eq(['00\n', '.0\n', '..\n'])
+    end
   end
 end
