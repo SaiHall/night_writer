@@ -13,5 +13,9 @@ class Translator
     Translator.new(dictionary)
   end
 
-
+  def update_hash
+    @dictionary.each do |row|
+      @csv_hash[row[:character]] = row[:braille]
+    end
+  end
 end
