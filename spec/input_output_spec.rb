@@ -63,8 +63,8 @@ describe InputOutput do
     end
 
     it 'can translate outgoing text to loose braille' do
-      # incoming_text =
-      expect(@input_output.set_outgoing_text(@translator.translate(@input_output.incoming_text))).to eq(['00', '.0', '..'])
+      @input_output.set_outgoing_text(@translator.translate(@input_output.incoming_text))
+      expect(@input_output.outgoing_text).to eq(['00', '.0', '..'])
     end
   end
 end
