@@ -12,5 +12,6 @@ describe Translator do
 
   it 'has readable attributes' do
     expect(@translator.dictionary).to be_an_instance_of(CSV::Table)
+    expect(@translator.csv_hash).to eq({})
   end
 end
