@@ -13,6 +13,7 @@ describe Translator do
   it 'has readable attributes' do
     expect(@translator.dictionary).to be_an_instance_of(CSV::Table)
     expect(@translator.dictionary_hash).to eq({})
+    expect(@translator.translated_array).to eq([])
   end
 
   it 'can update the CSV hash based off dictionary' do
