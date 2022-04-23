@@ -13,9 +13,16 @@ class Translator
     Translator.new(dictionary)
   end
 
-  def update_hash
+  def update_hash#move to module to keep in init?
     @dictionary.each do |row|
       @csv_hash[row[:character]] = row[:braille]
     end
+  end
+
+  def translate(text_to_translate)
+    array = []
+    array << @csv_hash[text_to_translate][0..1]
+    array << @csv_hash[text_to_translate][2..3]
+    array << @csv_hash[text_to_translate][4..5]
   end
 end
