@@ -1,9 +1,20 @@
 class InputOutput
-  attr_reader :incoming_text, :outgoing_text
+  attr_reader :incoming_file, :outgoing_file, :incoming_text
 
   def initialize(user_input1, user_input2)
-    @incoming_text = File.new(user_input1, 'r')
-    @outgoing_text = File.new(user_input2, 'w')
+    @incoming_file = user_input1
+    @outgoing_file = user_input2
+    @incoming_text
+    @outgoing
+  end
+
+  def read_incoming
+    incoming = File.open(@incoming_file, "r")
+    @incoming_text = incoming.read
+    incoming.close
+  end
+  def char_count
+    @incoming_text.length
   end
 
 end
