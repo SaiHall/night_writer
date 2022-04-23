@@ -1,3 +1,4 @@
+require_relative '../lib/input_output'
 require 'CSV'
 
 class Translator

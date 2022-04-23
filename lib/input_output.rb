@@ -1,3 +1,4 @@
+require_relative './translator'
 class InputOutput
   attr_reader :incoming_file, :outgoing_file, :incoming_text, :outgoing_text
 
@@ -10,7 +11,7 @@ class InputOutput
 
   def read_incoming #Make a module to put .read_incoming in intialize?
     incoming = File.open(@incoming_file, "r")
-    @incoming_text = incoming.read
+    @incoming_text = (incoming.read).chomp
     incoming.close
   end
 
@@ -36,4 +37,6 @@ class InputOutput
     read_incoming
     puts return_message
   end
+
+
 end
