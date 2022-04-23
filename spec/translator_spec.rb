@@ -12,7 +12,7 @@ describe Translator do
 
   it 'has readable attributes' do
     expect(@translator.dictionary).to be_an_instance_of(CSV::Table)
-    expect(@translator.csv_hash).to eq({})
+    expect(@translator.dictionary_hash).to eq({})
   end
 
   it 'can update the CSV hash based off dictionary' do
@@ -44,11 +44,18 @@ describe Translator do
        "x" => "00..00",
        "y" => "00.000",
        "z" => "0..000"}
-    expect(@translator.csv_hash).to eq(expected)
+    expect(@translator.dictionary_hash).to eq(expected)
   end
 
   it 'can translate given character into braille' do
     @translator.update_hash
     expect(@translator.translate("a")).to eq(['0.', '..', '..'])
+  end
+
+  it 'can format braille to print on three lines' do
+    @translator.update_hash
+    @translator.translate('a')
+    @translator.format
+    expect(@translator.translated_array).to eq(['0.\n', '..\n', '..\n'])
   end
 end
