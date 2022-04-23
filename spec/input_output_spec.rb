@@ -14,4 +14,8 @@ describe InputOutput do
     expect(@input_output.outgoing_text).to be_a(File)
   end
 
+  it 'can return incoming text char count' do
+    expect(@input_output.char_count).to eq(39)
+  end
+
 end
