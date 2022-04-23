@@ -5,7 +5,6 @@ class InputOutput
     @incoming_file = user_input1
     @outgoing_file = user_input2
     @incoming_text
-    @outgoing
   end
 
   def read_incoming
@@ -13,8 +12,13 @@ class InputOutput
     @incoming_text = incoming.read
     incoming.close
   end
+
   def char_count
     @incoming_text.length
+  end
+
+  def return_message
+    "Created '#{@outgoing_file}' containing #{char_count} characters"
   end
 
 end
