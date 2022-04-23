@@ -8,4 +8,8 @@ describe Translator do
   it 'exists' do
     expect(@translator).to be_an_instance_of(Translator)
   end
+
+  it 'has readable attributes' do
+    expect(translator.dictionary_path).to eq('.docs/dictionary.csv')
+  end
 end
