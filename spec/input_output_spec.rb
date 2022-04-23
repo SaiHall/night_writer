@@ -10,8 +10,13 @@ describe InputOutput do
   end
 
   it 'has readable attributes' do
-    expect(@input_output.incoming_text).to be_a(File)
-    expect(@input_output.outgoing_text).to be_a(File)
+    expect(@input_output.incoming_file).to eq('message.txt')
+    expect(@input_output.outgoing_file).to eq('braille.txt')
+  end
+
+  it 'Can open and read the contents of attribute files' do
+    @input_output.read_incoming
+    expect(@input_output.incoming_text).to eq('Do not panic, this is merely a sample.\n')
   end
 
   it 'can return incoming text char count' do
