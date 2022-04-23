@@ -10,6 +10,6 @@ describe Translator do
   end
 
   it 'has readable attributes' do
-    expect(translator.dictionary_path).to eq('.docs/dictionary.csv')
+    expect(@translator.dictionary_path).to eq('.docs/dictionary.csv')
   end
 end
