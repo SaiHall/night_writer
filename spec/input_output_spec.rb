@@ -7,7 +7,6 @@ describe InputOutput do
   context 'input' do
     before(:each) do
         @input_output = InputOutput.new('message.txt', 'braille.txt')
-        @input_output.read_incoming
     end
     it 'exists' do
         expect(@input_output).to be_an_instance_of(InputOutput)
@@ -38,7 +37,6 @@ describe InputOutput do
   context 'output' do
     before(:each) do
       @input_output = InputOutput.new('message.txt', 'braille.txt')
-      @input_output.read_incoming
       @input_output.set_outgoing_text(@input_output.incoming_text)
     end
 
@@ -57,9 +55,7 @@ describe InputOutput do
   context 'translating output text' do
     before(:each) do
       @input_output = InputOutput.new('message_one_char.txt', 'braille.txt')
-      @input_output.read_incoming
       @translator = Translator.from_csv('./docs/dictionary.csv')
-      @translator.update_hash
     end
 
     it 'can translate outgoing text to loose braille' do
