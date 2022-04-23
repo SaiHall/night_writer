@@ -16,7 +16,7 @@ describe InputOutput do
 
   it 'Can open and read the contents of attribute files' do
     @input_output.read_incoming
-    expect(@input_output.incoming_text).to eq('Do not panic, this is merely a sample.\n')
+    expect(@input_output.incoming_text).to eq("Do not panic, this is merely a sample.\n")
   end
 
   it 'can return incoming text char count' do
