@@ -4,6 +4,7 @@ require 'Rspec'
 describe InputOutput do
   before(:each) do
     @input_output = InputOutput.new('message.txt', 'braille.txt')
+    @input_output.read_incoming
   end
   it 'exists' do
     expect(@input_output).to be_an_instance_of(InputOutput)
@@ -15,13 +16,15 @@ describe InputOutput do
   end
 
   it 'Can open and read the contents of attribute files' do
-    @input_output.read_incoming
     expect(@input_output.incoming_text).to eq("Do not panic, this is merely a sample.\n")
   end
 
   it 'can return incoming text char count' do
-    @input_output.read_incoming
     expect(@input_output.char_count).to eq(39)
+  end
+
+  it 'Can produce the desired message' do
+    expect(@input_output.return_message).to eq("Created 'braille.txt' containing 39 characters")
   end
 
 end
