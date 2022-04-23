@@ -1,19 +1,15 @@
 require_relative './translator'
+require_relative './initializable'
 class InputOutput
+  include Initializable
   attr_reader :incoming_file, :outgoing_file, :incoming_text, :outgoing_text, :translator
 
   def initialize(user_input1, user_input2)
     @incoming_file = user_input1
     @outgoing_file = user_input2
-    @incoming_text
+    @incoming_text = read_incoming
     @outgoing_text
     @translator = Translator.from_csv('./docs/dictionary.csv')
-  end
-
-  def read_incoming #Make a module to put .read_incoming in intialize?
-    incoming = File.open(@incoming_file, "r")
-    @incoming_text = (incoming.read).chomp
-    incoming.close
   end
 
   def char_count

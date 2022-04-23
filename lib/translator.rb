@@ -1,12 +1,14 @@
 require_relative '../lib/input_output'
 require 'CSV'
+require_relative '../lib/initializable'
 
 class Translator
+  include Initializable
   attr_reader :dictionary, :dictionary_hash, :translated_array
 
   def initialize(dictionary)
     @dictionary = dictionary
-    @dictionary_hash = {}
+    @dictionary_hash = update_hash
     @translated_array = []
 
   end
@@ -14,12 +16,6 @@ class Translator
   def self.from_csv(path)
     dictionary = CSV.read "#{path}", headers: true, header_converters: :symbol
     Translator.new(dictionary)
-  end
-
-  def update_hash#move to module to keep in init?
-    @dictionary.each do |row|
-      @dictionary_hash[row[:character]] = row[:braille]
-    end
   end
 
   def translate(text_to_translate)
