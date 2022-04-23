@@ -21,4 +21,8 @@ class InputOutput
     "Created '#{@outgoing_file}' containing #{char_count} characters"
   end
 
+  def run
+    read_incoming
+    puts return_message
+  end
 end
