@@ -20,6 +20,7 @@ describe InputOutput do
   end
 
   it 'can return incoming text char count' do
+    @input_output.read_incoming
     expect(@input_output.char_count).to eq(39)
   end
 
