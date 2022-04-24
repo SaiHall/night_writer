@@ -58,7 +58,7 @@ describe InputOutput do
   context 'translating output text' do
     before(:each) do
       @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
     end
 
     it 'can set translated, formatted braille to outgoing text' do
@@ -80,7 +80,7 @@ describe InputOutput do
   context 'writing translated character to a new file' do
     before(:each) do
       @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
     end
 
     it 'can write formatted text translation to new file' do
@@ -96,7 +96,7 @@ describe InputOutput do
   context 'Writing/Translating more than one character' do
     before(:each) do
       @input_output = InputOutput.new('message_simple.txt', 'braille_multi.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
       @input_output.set_outgoing_text(@input_output.translate_incoming)
       @input_output.write_translation
     end
@@ -116,7 +116,7 @@ describe InputOutput do
   context 'Writing/Translating more than 40 characters' do
     before(:each) do
       @input_output = InputOutput.new('message_long.txt', 'braille_long.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
       @input_output.set_outgoing_text(@input_output.translate_incoming)
       @input_output.write_translation
     end
