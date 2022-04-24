@@ -38,4 +38,12 @@ class InputOutput
     @translator.translate(@incoming_text)
     @translator.format
   end
+
+  def write_translation
+    outgoing = File.open(@outgoing_file, "w")
+    outgoing.write(@outgoing_text[0])
+    outgoing.write(@outgoing_text[1])
+    outgoing.write(@outgoing_text[2])
+    outgoing.close
+  end
 end
