@@ -11,7 +11,7 @@ module Initializable
   def update_hash
     dictionary_hash = {}
     @dictionary.each do |row|
-      dictionary_hash[row[:character]] = row[:braille]
+      dictionary_hash[row[:character]] = {top: row[:braille][0..1], mid: row[:braille][2..3], bot: row[:braille][4..5]}
     end
     return dictionary_hash
   end
