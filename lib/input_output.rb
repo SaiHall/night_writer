@@ -30,7 +30,9 @@ class InputOutput
     outgoing.close
   end
 
-  def run #Can update?
+  def run
+    set_outgoing_text(translate_incoming)
+    write_translation
     puts return_message
   end
 
