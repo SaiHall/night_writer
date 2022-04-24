@@ -4,7 +4,7 @@ require 'CSV'
 
 describe Translator do
   before(:each) do
-    @translator = Translator.from_csv('./docs/dictionary.csv')
+    @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
   end
   it 'exists' do
     expect(@translator).to be_an_instance_of(Translator)

@@ -5,7 +5,7 @@ require 'CSV'
 
 describe Initializable do
   it 'creates a hash from csv fed to Translator and sets it to dictionary_hash' do
-    @translator = Translator.from_csv('./docs/dictionary.csv')
+    @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
 
     expected = {" " => {top: "..", mid: "..", bot: ".."},
        "a" => {top:"0.", mid: "..", bot: ".."},
@@ -40,7 +40,7 @@ describe Initializable do
   it 'set the contents, without \n, of an incoming file to incoming text' do
     @input_output = InputOutput.new('message.txt', 'braille.txt')
     expect(@input_output.incoming_text).to eq("Do not panic, this is merely a sample.")
-    @input_output = InputOutput.new('message_one_char.txt', 'braille.txt')
+    @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
     expect(@input_output.incoming_text).to eq("d")
   end
 end
