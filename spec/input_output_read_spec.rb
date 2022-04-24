@@ -15,4 +15,8 @@ describe InputOutputRead do
       expect(@io_read.outgoing_file).to eq('original_message.txt')
     end
 
+    it 'Can open and read the contents of attribute file' do
+        expect(@io_read.incoming_text).to eq(".00.0....00.0.0.00..0.0.0.00\n0000.0..00.00.0..0..0..0...0\n0...........0.0.00........0.")
+    end
+
 end
