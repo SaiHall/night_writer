@@ -112,4 +112,26 @@ describe InputOutput do
       expect(new_file_contents).to eq([".00.0....00.0.0.00..0.0.0.00\n", "0000.0..00.00.0..0..0..0...0\n", "0...........0.0.00........0.\n"])
     end
   end
+
+  context 'Writing/Translating more than 40 characters' do
+    before(:each) do
+      @input_output = InputOutput.new('message_long.txt', 'braille_long.txt')
+      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @input_output.set_outgoing_text(@input_output.translate_incoming)
+      @input_output.write_translation
+    end
+
+    it 'can translate more that 40 characters with correct formatting' do
+      new_file = File.open(@input_output.outgoing_file)
+      new_file_contents = new_file.readlines
+      new_file.close
+      expected = [".00.0.0.0...000..0..0.0.0....0.00.0..00.\n","0000.000.0...0.0......00.0..0.00.0.00000\n",
+       "0.....0.....000.00....0.....0..0....0...\n", "0.0.0..0...00.0.0.00...000..0.0..00....0\n",
+       ".0..0000..0..00000.0..0.....0...00.0..0.\n", "....0.0...0.0.0.0.00....0...0...0.......\n",
+       "...00..0..0.0.0.0..00000..0.0.0.0.00.00.\n", "..00..0...0..0.0..0..000...00..000.00000\n",
+       "...0..0...0.0.0.0...0.......00..0.00.0..\n", "0.0.0...000.0...000..0\n", ".000.0..0..000...0.0..\n",
+       "..0.......0.0...000.00\n"]
+      expect(new_file_contents).to eq(expected)
+    end
+  end
 end
