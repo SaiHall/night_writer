@@ -41,9 +41,20 @@ class InputOutput
 
   def write_translation
     outgoing = File.open(@outgoing_file, "w")
-    outgoing.write(@outgoing_text[0])
-    outgoing.write(@outgoing_text[1])
-    outgoing.write(@outgoing_text[2])
+    if @outgoing_text[0].length > 80
+      until @outgoing_text[0].length < 80 do
+        outgoing.write("#{@outgoing_text[0].slice!(0..79)}\n")
+        outgoing.write("#{@outgoing_text[1].slice!(0..79)}\n")
+        outgoing.write("#{@outgoing_text[2].slice!(0..79)}\n")
+      end
+      outgoing.write(@outgoing_text[0])
+      outgoing.write(@outgoing_text[1])
+      outgoing.write(@outgoing_text[2])
+    else
+      outgoing.write(@outgoing_text[0])
+      outgoing.write(@outgoing_text[1])
+      outgoing.write(@outgoing_text[2])
+    end
     outgoing.close
   end
 end
