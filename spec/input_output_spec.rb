@@ -6,7 +6,7 @@ require 'CSV'
 describe InputOutput do
   context 'input' do
     before(:each) do
-        @input_output = InputOutput.new('message.txt', 'braille.txt')
+        @input_output = InputOutput.new('message.txt', 'message_repeat.txt')
     end
     it 'exists' do
         expect(@input_output).to be_an_instance_of(InputOutput)
@@ -14,7 +14,7 @@ describe InputOutput do
 
     it 'has readable attributes' do
         expect(@input_output.incoming_file).to eq('message.txt')
-        expect(@input_output.outgoing_file).to eq('braille.txt')
+        expect(@input_output.outgoing_file).to eq('message_repeat.txt')
     end
 
     it 'Can open and read the contents of attribute file' do
@@ -26,7 +26,7 @@ describe InputOutput do
     end
 
     it 'Can produce the desired message' do
-        expect(@input_output.return_message).to eq("Created 'braille.txt' containing 38 characters")
+        expect(@input_output.return_message).to eq("Created 'message_repeat.txt' containing 38 characters")
     end
 
     it 'see all methods in run, and print a correct response' do #Using a stub to make sure all previous methods are visible to .run method- removing the CLI portion
@@ -37,7 +37,7 @@ describe InputOutput do
 
   context 'output' do
     before(:each) do
-      @input_output = InputOutput.new('message.txt', 'braille.txt')
+      @input_output = InputOutput.new('message.txt', 'message_repeat.txt')
       @input_output.set_outgoing_text(@input_output.incoming_text)
     end
 
@@ -57,7 +57,7 @@ describe InputOutput do
 
   context 'translating output text' do
     before(:each) do
-      @input_output = InputOutput.new('message_one_char.txt', 'braille.txt')
+      @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
       @translator = Translator.from_csv('./docs/dictionary.csv')
     end
 
