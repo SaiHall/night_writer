@@ -18,10 +18,18 @@ class Translator
     Translator.new(dictionary)
   end
 
-  def translate(text_to_translate)
-    @translated_hash[:top] = @dictionary_hash[text_to_translate][:top]
-    @translated_hash[:mid] = @dictionary_hash[text_to_translate][:mid]
-    @translated_hash[:bot] = @dictionary_hash[text_to_translate][:bot]
+  def translate(text_to_translate)#if statement for empty hash, and then to shovel into existing
+    text_to_translate.each_char do |char|
+      if @translated_hash == {}
+        @translated_hash[:top] = @dictionary_hash[char][:top]
+        @translated_hash[:mid] = @dictionary_hash[char][:mid]
+        @translated_hash[:bot] = @dictionary_hash[char][:bot]
+      else
+        @translated_hash[:top] << @dictionary_hash[char][:top]
+        @translated_hash[:mid] << @dictionary_hash[char][:mid]
+        @translated_hash[:bot] << @dictionary_hash[char][:bot]
+      end
+    end
     return @translated_hash
   end
 
