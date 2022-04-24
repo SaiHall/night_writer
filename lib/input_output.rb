@@ -30,12 +30,11 @@ class InputOutput
     outgoing.close
   end
 
-  def run
+  def run #Can update?
     puts return_message
   end
 
   def translate_incoming
-    @translator.update_hash
     @translator.translate(@incoming_text)
     @translator.format
   end

@@ -61,24 +61,19 @@ describe InputOutput do
       @translator = Translator.from_csv('./docs/dictionary.csv')
     end
 
-    it 'can translate outgoing text to loose braille' do
-      @input_output.set_outgoing_text(@translator.translate(@input_output.incoming_text))
-      expect(@input_output.outgoing_text).to eq(['00', '.0', '..'])
-    end
-
     it 'can set translated, formatted braille to outgoing text' do
       @translator.translate(@input_output.incoming_text)
       @input_output.set_outgoing_text(@translator.format)
-      expect(@input_output.outgoing_text).to eq(['00\n', '.0\n', '..\n'])
+      expect(@input_output.outgoing_text).to eq(["00\n", ".0\n", "..\n"])
     end
 
     it 'can translate incoming text from within input output class' do
-      expect(@input_output.translate_incoming).to eq(['00\n', '.0\n', '..\n'])
+      expect(@input_output.translate_incoming).to eq(["00\n", ".0\n", "..\n"])
     end
 
     it 'can set translated incoming text as out going text' do
       @input_output.set_outgoing_text(@input_output.translate_incoming)
-      expect(@input_output.outgoing_text).to eq(['00\n', '.0\n', '..\n'])
+      expect(@input_output.outgoing_text).to eq(["00\n", ".0\n", "..\n"])
     end
   end
 
@@ -90,7 +85,7 @@ describe InputOutput do
 
     it 'can write formatted text translation to new file' do
       @input_output.set_outgoing_text(@input_output.translate_incoming)
-      @input_output.write
+      @input_output.write_translation
       new_file = File.open(@input_output.outgoing_file)
       new_file_contents = new_file.read
       new_file.close
