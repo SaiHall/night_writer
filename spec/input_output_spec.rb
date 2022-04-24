@@ -77,7 +77,7 @@ describe InputOutput do
     end
   end
 
-  context 'writing translated text to a new file' do
+  context 'writing translated character to a new file' do
     before(:each) do
       @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
       @translator = Translator.from_csv('./docs/dictionary.csv')
@@ -90,6 +90,19 @@ describe InputOutput do
       new_file_contents = new_file.read
       new_file.close
       expect(new_file_contents).to eq("00\n.0\n..\n")
+    end
+  end
+
+  context 'Writing/Translating more than one character' do
+    before(:each) do
+      @input_output = InputOutput.new('message_simple.txt', 'braille_multi.txt')
+      @translator = Translator.from_csv('./docs/dictionary.csv')
+    end
+
+    it 'can translate multiple characters' do
+      @input_output.set_outgoing_text(@input_output.translate_incoming)
+      @input_output.write_translation
+      expect(@input_output.outgoing_text).to eq([".00.0....00.0.0.00..0.0.0.00\n", "0000.0..00.00.0..0..0..0...0\n", "0...........0.0.00........0.\n"])
     end
   end
 end
