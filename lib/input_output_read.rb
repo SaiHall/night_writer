@@ -12,4 +12,8 @@ class InputOutputRead
     @incoming_text = read_incoming
   end
 
+  def braille_count
+    (@incoming_text.delete("\n").length) / 6
+  end
+
 end
