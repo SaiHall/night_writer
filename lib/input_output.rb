@@ -31,7 +31,6 @@ class InputOutput
   end
 
   def run
-    read_incoming
     puts return_message
   end
 
