@@ -34,6 +34,7 @@ describe InputOutput do
         expect(@input_output.run).to eq("Created 'braille.txt' containing 38 characters")
     end
   end
+
   context 'output' do
     before(:each) do
       @input_output = InputOutput.new('message.txt', 'braille.txt')
@@ -44,6 +45,7 @@ describe InputOutput do
       expect(@input_output.outgoing_text).to eq(@input_output.incoming_text)
       expect(@input_output.outgoing_text).to eq("Do not panic, this is merely a sample.")
     end
+
     it 'can write outgoing contents to a new file' do
       @input_output.write
       new_file = File.open(@input_output.outgoing_file)
@@ -52,6 +54,7 @@ describe InputOutput do
       expect(new_file_contents).to eq("Do not panic, this is merely a sample.")
     end
   end
+
   context 'translating output text' do
     before(:each) do
       @input_output = InputOutput.new('message_one_char.txt', 'braille.txt')
@@ -76,6 +79,22 @@ describe InputOutput do
     it 'can set translated incoming text as out going text' do
       @input_output.set_outgoing_text(@input_output.translate_incoming)
       expect(@input_output.outgoing_text).to eq(['00\n', '.0\n', '..\n'])
+    end
+  end
+
+  context 'writing translated text to a new file' do
+    before(:each) do
+      @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
+      @translator = Translator.from_csv('./docs/dictionary.csv')
+    end
+
+    it 'can write formatted text translation to new file' do
+      @input_output.set_outgoing_text(@input_output.translate_incoming)
+      @input_output.write
+      new_file = File.open(@input_output.outgoing_file)
+      new_file_contents = new_file.read
+      new_file.close
+      expect(new_file_contents).to eq("00\n.0\n..\n")
     end
   end
 end
