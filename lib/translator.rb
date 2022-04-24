@@ -25,9 +25,9 @@ class Translator
         @translated_hash[:mid] = @dictionary_hash[char][:mid]
         @translated_hash[:bot] = @dictionary_hash[char][:bot]
       else
-        @translated_hash[:top] << @dictionary_hash[char][:top]
-        @translated_hash[:mid] << @dictionary_hash[char][:mid]
-        @translated_hash[:bot] << @dictionary_hash[char][:bot]
+        @translated_hash[:top] += @dictionary_hash[char][:top]
+        @translated_hash[:mid] += @dictionary_hash[char][:mid]
+        @translated_hash[:bot] += @dictionary_hash[char][:bot]
       end
     end
     return @translated_hash
