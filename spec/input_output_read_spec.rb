@@ -21,12 +21,17 @@ describe InputOutputRead do
     end
   end
 
-  context 'Counting characters from braille' do
+  context 'Counting characters from braille & confirmation message' do
     before(:each) do
         @io_read = InputOutputRead.new('braille.txt', 'original_message.txt')
     end
+
     it 'can count braille characters' do
       expect(@io_read.braille_count).to eq(14)
+    end
+
+    it 'can return a message with count and file name to be created' do
+      expect(@io_read.return_message).to eq("Created 'original_message.txt' containing 14 characters.")
     end
   end
 end
