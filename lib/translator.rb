@@ -4,12 +4,12 @@ require_relative '../lib/initializable'
 
 class Translator
   include Initializable
-  attr_reader :dictionary, :dictionary_hash, :translated_array
+  attr_reader :dictionary, :dictionary_hash, :translated_hash
 
   def initialize(dictionary)
     @dictionary = dictionary
     @dictionary_hash = update_hash
-    @translated_array = []
+    @translated_hash = {}
 
   end
 
@@ -19,14 +19,16 @@ class Translator
   end
 
   def translate(text_to_translate)
-    @translated_array << @dictionary_hash[text_to_translate][0..1]
-    @translated_array << @dictionary_hash[text_to_translate][2..3]
-    @translated_array << @dictionary_hash[text_to_translate][4..5]
+    @translated_hash[:top] = @dictionary_hash[text_to_translate][:top]
+    @translated_hash[:mid] = @dictionary_hash[text_to_translate][:mid]
+    @translated_hash[:bot] = @dictionary_hash[text_to_translate][:bot]
+    return @translated_hash
   end
 
   def format
-    @translated_array.map do |element|
-      element << '\n'
+    @translated_hash.each do |key, value|
+      @translated_hash[key] = value + "\n"
     end
+    return @translated_hash.values
   end
 end
