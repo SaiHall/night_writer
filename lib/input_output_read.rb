@@ -16,4 +16,8 @@ class InputOutputRead
     (@incoming_text.delete("\n").length) / 6
   end
 
+  def return_message
+    "Created '#{@outgoing_file}' containing #{braille_count} characters."
+  end
+
 end
