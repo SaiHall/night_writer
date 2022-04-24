@@ -97,12 +97,19 @@ describe InputOutput do
     before(:each) do
       @input_output = InputOutput.new('message_simple.txt', 'braille_multi.txt')
       @translator = Translator.from_csv('./docs/dictionary.csv')
+      @input_output.set_outgoing_text(@input_output.translate_incoming)
+      @input_output.write_translation
     end
 
     it 'can translate multiple characters' do
-      @input_output.set_outgoing_text(@input_output.translate_incoming)
-      @input_output.write_translation
       expect(@input_output.outgoing_text).to eq([".00.0....00.0.0.00..0.0.0.00\n", "0000.0..00.00.0..0..0..0...0\n", "0...........0.0.00........0.\n"])
+    end
+
+    it 'can write multiple characters in braille' do
+      new_file = File.open(@input_output.outgoing_file)
+      new_file_contents = new_file.readlines
+      new_file.close
+      expect(new_file_contents).to eq([".00.0....00.0.0.00..0.0.0.00\n", "0000.0..00.00.0..0..0..0...0\n", "0...........0.0.00........0.\n"])
     end
   end
 end
