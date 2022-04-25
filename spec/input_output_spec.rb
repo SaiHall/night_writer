@@ -17,8 +17,8 @@ describe InputOutput do
         expect(@input_output.outgoing_file).to eq('message_repeat.txt')
     end
 
-    it 'Can open and read the contents of attribute file' do
-        expect(@input_output.incoming_text).to eq("Do not panic, this is merely a sample.")
+    it 'Can open and read the contents of attribute file, in lowercase' do
+        expect(@input_output.incoming_text).to eq("do not panic, this is merely a sample.")
     end
 
     it 'can return incoming text char count' do
@@ -43,7 +43,7 @@ describe InputOutput do
 
     it 'can set outgoing text and read it' do
       expect(@input_output.outgoing_text).to eq(@input_output.incoming_text)
-      expect(@input_output.outgoing_text).to eq("Do not panic, this is merely a sample.")
+      expect(@input_output.outgoing_text).to eq("do not panic, this is merely a sample.")
     end
 
     it 'can write outgoing contents to a new file' do
@@ -51,7 +51,7 @@ describe InputOutput do
       new_file = File.open(@input_output.outgoing_file)
       new_file_contents = new_file.read
       new_file.close
-      expect(new_file_contents).to eq("Do not panic, this is merely a sample.")
+      expect(new_file_contents).to eq("do not panic, this is merely a sample.")
     end
   end
 
