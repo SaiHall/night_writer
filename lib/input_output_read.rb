@@ -4,13 +4,14 @@ require_relative './initializable'
 class InputOutputRead
   include Initializable
 
-  attr_reader :incoming_file, :outgoing_file, :incoming_text, :translator
+  attr_reader :incoming_file, :outgoing_file, :incoming_text, :translator, :outgoing_text
 
   def initialize(user_input1, user_input2)
     @incoming_file = user_input1
     @outgoing_file = user_input2
     @incoming_text = read_incoming
     @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
+    @outgoing_text
 
   end
 
@@ -24,6 +25,10 @@ class InputOutputRead
 
   def translate_incoming_braille
     @translator.translate_braille(@incoming_text.delete("\n"))
+  end
+
+  def set_outgoing_text(text_to_set)
+    @outgoing_text = text_to_set
   end
 
 end
