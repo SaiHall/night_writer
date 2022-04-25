@@ -31,4 +31,10 @@ class InputOutputRead
     @outgoing_text = text_to_set
   end
 
+  def write_braille_translation
+    outgoing = File.open(@outgoing_file, "w")
+    outgoing.write(@outgoing_text)
+    outgoing.close
+  end
+
 end
