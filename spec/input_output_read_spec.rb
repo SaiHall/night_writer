@@ -82,4 +82,13 @@ describe InputOutputRead do
       expect(new_file_contents).to eq("the jelly bean")
     end
   end
+
+  context 'Write translation to new file for more than 40 characters' do
+    before(:each) do
+        @io_read = InputOutputRead.new('braille_long.txt', 'original_message.txt')
+    end
+    it 'can translate more than 40 characters' do
+      expect(@io_read.translate_incoming_braille).to eq("there you are sweetheart sorry im late i was looking everywhere for you")
+    end
+  end
 end
