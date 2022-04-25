@@ -37,4 +37,8 @@ class InputOutputRead
     outgoing.close
   end
 
+  def run_braille
+    set_outgoing_text(translate_incoming_braille)
+    write_braille_translation
+  end
 end
