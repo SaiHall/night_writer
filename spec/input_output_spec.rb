@@ -134,4 +134,23 @@ describe InputOutput do
       expect(new_file_contents).to eq(expected)
     end
   end
+  context 'Run testing' do
+    before(:each) do
+      @input_output = InputOutput.new('message_long.txt', 'braille_long.txt')
+    end
+
+    it 'can translate and write in one method containing all set up' do
+      @input_output.run
+      new_file = File.open(@input_output.outgoing_file)
+      new_file_contents = new_file.readlines
+      new_file.close
+      expected = [".00.0.0.0...000..0..0.0.0....0.00.0..00.0.0.0..0...00.0.0.00...000..0.0..00....0\n",
+       "0000.000.0...0.0......00.0..0.00.0.00000.0..0000..0..00000.0..0.....0...00.0..0.\n",
+       "0.....0.....000.00....0.....0..0....0.......0.0...0.0.0.0.00....0...0...0.......\n",
+       "...00..0..0.0.0.0..00000..0.0.0.0.00.00.0.0.0...000.0...000..0\n",
+       "..00..0...0..0.0..0..000...00..000.00000.000.0..0..000...0.0..\n",
+       "...0..0...0.0.0.0...0.......00..0.00.0....0.......0.0...000.00\n"]
+      expect(new_file_contents).to eq(expected)
+    end
+  end
 end
