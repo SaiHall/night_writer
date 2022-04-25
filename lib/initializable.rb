@@ -5,7 +5,7 @@ module Initializable
     incoming = File.open(@incoming_file, "r")
     incoming_text = (incoming.read).chomp
     incoming.close
-    return incoming_text
+    return incoming_text.downcase
   end
 
   def update_hash
