@@ -4,7 +4,7 @@ require 'CSV'
 
 describe Translator do
   before(:each) do
-    @translator = Translator.from_csv('./docs/dictionary.csv')
+    @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
   end
   it 'exists' do
     expect(@translator).to be_an_instance_of(Translator)
@@ -50,5 +50,59 @@ describe Translator do
   it 'can format braille to print on three lines' do
     @translator.translate('a')
     expect(@translator.format).to eq(["0.\n", "..\n", "..\n"])
+  end
+
+  context 'Braille dictionary update' do
+    before(:each) do
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
+    end
+    it 'has a separate dictionary for braille to english' do
+      expected = {"0....."=>"a",
+        "0.0..."=>"b",
+        "00...."=>"c",
+        "00.0.."=>"d",
+        "0..0.."=>"e",
+        "000..."=>"f",
+        "0000.."=>"g",
+        "0.00.."=>"h",
+        ".00..."=>"i",
+        ".000.."=>"j",
+        "0...0."=>"k",
+        "0.0.0."=>"l",
+        "00..0."=>"m",
+        "00.00."=>"n",
+        "0..00."=>"o",
+        "000.0."=>"p",
+        "00000."=>"q",
+        "0.000."=>"r",
+        ".00.0."=>"s",
+        ".0000."=>"t",
+        ".0..00"=>"u",
+        "0.0.00"=>"v",
+        ".000.0"=>"w",
+        "00..00"=>"x",
+        "00.000"=>"y",
+        "0..000"=>"z",
+        "......"=>" "}
+      expect(@translator.braille_dict_hash).to eq(expected)
+    end
+  end
+
+  context 'Translate single braille character to english' do
+    before(:each) do
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
+    end
+    it 'can translate a single braille character to english' do
+      expect(@translator.translate_braille("00.0..")).to eq("d")
+    end
+  end
+  context "Translate multiple characters from braille to english" do
+    before(:each) do
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
+    end
+    it 'can properly segment and translate braille into english' do
+      example = ".00.0....00.0.0.00..0.0.0.00\n0000.0..00.00.0..0..0..0...0\n0...........0.0.00........0."
+      expect(@translator.translate_braille(example)).to eq("the jelly bean")
+    end
   end
 end

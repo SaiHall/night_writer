@@ -6,7 +6,7 @@ require 'CSV'
 describe InputOutput do
   context 'input' do
     before(:each) do
-        @input_output = InputOutput.new('message.txt', 'braille.txt')
+        @input_output = InputOutput.new('message.txt', 'message_repeat.txt')
     end
     it 'exists' do
         expect(@input_output).to be_an_instance_of(InputOutput)
@@ -14,11 +14,11 @@ describe InputOutput do
 
     it 'has readable attributes' do
         expect(@input_output.incoming_file).to eq('message.txt')
-        expect(@input_output.outgoing_file).to eq('braille.txt')
+        expect(@input_output.outgoing_file).to eq('message_repeat.txt')
     end
 
-    it 'Can open and read the contents of attribute file' do
-        expect(@input_output.incoming_text).to eq("Do not panic, this is merely a sample.")
+    it 'Can open and read the contents of attribute file, in lowercase' do
+        expect(@input_output.incoming_text).to eq("do not panic, this is merely a sample.")
     end
 
     it 'can return incoming text char count' do
@@ -26,24 +26,24 @@ describe InputOutput do
     end
 
     it 'Can produce the desired message' do
-        expect(@input_output.return_message).to eq("Created 'braille.txt' containing 38 characters")
+        expect(@input_output.return_message).to eq("Created 'message_repeat.txt' containing 38 characters")
     end
 
     it 'see all methods in run, and print a correct response' do #Using a stub to make sure all previous methods are visible to .run method- removing the CLI portion
         allow(@input_output).to receive(:run).and_return("Created '#{@input_output.outgoing_file}' containing #{@input_output.char_count} characters")
-        expect(@input_output.run).to eq("Created 'braille.txt' containing 38 characters")
+        expect(@input_output.run).to eq("Created 'message_repeat.txt' containing 38 characters")
     end
   end
 
   context 'output' do
     before(:each) do
-      @input_output = InputOutput.new('message.txt', 'braille.txt')
+      @input_output = InputOutput.new('message.txt', 'message_repeat.txt')
       @input_output.set_outgoing_text(@input_output.incoming_text)
     end
 
     it 'can set outgoing text and read it' do
       expect(@input_output.outgoing_text).to eq(@input_output.incoming_text)
-      expect(@input_output.outgoing_text).to eq("Do not panic, this is merely a sample.")
+      expect(@input_output.outgoing_text).to eq("do not panic, this is merely a sample.")
     end
 
     it 'can write outgoing contents to a new file' do
@@ -51,14 +51,14 @@ describe InputOutput do
       new_file = File.open(@input_output.outgoing_file)
       new_file_contents = new_file.read
       new_file.close
-      expect(new_file_contents).to eq("Do not panic, this is merely a sample.")
+      expect(new_file_contents).to eq("do not panic, this is merely a sample.")
     end
   end
 
   context 'translating output text' do
     before(:each) do
-      @input_output = InputOutput.new('message_one_char.txt', 'braille.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
     end
 
     it 'can set translated, formatted braille to outgoing text' do
@@ -80,7 +80,7 @@ describe InputOutput do
   context 'writing translated character to a new file' do
     before(:each) do
       @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
     end
 
     it 'can write formatted text translation to new file' do
@@ -96,7 +96,7 @@ describe InputOutput do
   context 'Writing/Translating more than one character' do
     before(:each) do
       @input_output = InputOutput.new('message_simple.txt', 'braille_multi.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
       @input_output.set_outgoing_text(@input_output.translate_incoming)
       @input_output.write_translation
     end
@@ -116,12 +116,31 @@ describe InputOutput do
   context 'Writing/Translating more than 40 characters' do
     before(:each) do
       @input_output = InputOutput.new('message_long.txt', 'braille_long.txt')
-      @translator = Translator.from_csv('./docs/dictionary.csv')
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
       @input_output.set_outgoing_text(@input_output.translate_incoming)
       @input_output.write_translation
     end
 
     it 'can translate more that 40 characters with correct formatting' do
+      new_file = File.open(@input_output.outgoing_file)
+      new_file_contents = new_file.readlines
+      new_file.close
+      expected = [".00.0.0.0...000..0..0.0.0....0.00.0..00.0.0.0..0...00.0.0.00...000..0.0..00....0\n",
+       "0000.000.0...0.0......00.0..0.00.0.00000.0..0000..0..00000.0..0.....0...00.0..0.\n",
+       "0.....0.....000.00....0.....0..0....0.......0.0...0.0.0.0.00....0...0...0.......\n",
+       "...00..0..0.0.0.0..00000..0.0.0.0.00.00.0.0.0...000.0...000..0\n",
+       "..00..0...0..0.0..0..000...00..000.00000.000.0..0..000...0.0..\n",
+       "...0..0...0.0.0.0...0.......00..0.00.0....0.......0.0...000.00\n"]
+      expect(new_file_contents).to eq(expected)
+    end
+  end
+  context 'Run testing' do
+    before(:each) do
+      @input_output = InputOutput.new('message_long.txt', 'braille_long.txt')
+    end
+
+    it 'can translate and write in one method containing all set up' do
+      @input_output.run
       new_file = File.open(@input_output.outgoing_file)
       new_file_contents = new_file.readlines
       new_file.close

@@ -9,7 +9,7 @@ class InputOutput
     @outgoing_file = user_input2
     @incoming_text = read_incoming
     @outgoing_text
-    @translator = Translator.from_csv('./docs/dictionary.csv')
+    @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
   end
 
   def char_count
@@ -33,7 +33,6 @@ class InputOutput
   def run
     set_outgoing_text(translate_incoming)
     write_translation
-    puts return_message
   end
 
   def translate_incoming
