@@ -87,4 +87,13 @@ describe Translator do
       expect(@translator.braille_dict_hash).to eq(expected)
     end
   end
+
+  context 'Translate single braille character to english' do
+    before(:each) do
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
+    end
+    it 'can translate a single braille character to english' do
+      expect(@translator.translate_braille("00.0..")).to eq("d")
+    end
+  end
 end
