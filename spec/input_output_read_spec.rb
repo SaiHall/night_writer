@@ -67,7 +67,7 @@ describe InputOutputRead do
         @io_read = InputOutputRead.new('braille_multi.txt', 'original_message.txt')
     end
     it 'can translate multiple characters at once' do
-      expect(@io_read.incoming_text).to eq(".00.0....00.0.0.00..0.0.0.00\n", "0000.0..00.00.0..0..0..0...0\n", "0...........0.0.00........0.\n")
+      expect(@io_read.incoming_text).to eq(".00.0....00.0.0.00..0.0.0.00\n0000.0..00.00.0..0..0..0...0\n0...........0.0.00........0.")
       expect(@io_read.translate_incoming_braille).to eq("the jelly bean")
     end
   end
