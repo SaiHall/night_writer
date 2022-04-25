@@ -22,4 +22,8 @@ class InputOutputRead
     "Created '#{@outgoing_file}' containing #{braille_count} characters."
   end
 
+  def translate_incoming_braille
+    @translator.translate_braille(@incoming_text.delete("\n"))
+  end
+
 end
