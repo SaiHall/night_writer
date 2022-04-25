@@ -37,7 +37,15 @@ class Translator
 
   def translate_braille(character_to_translate)
     english_array = []
-    english_array << @braille_dict_hash[character_to_translate]
+    if !character_to_translate.include?("\n")
+      english_array << @braille_dict_hash[character_to_translate]
+    else
+      segments = character_to_translate.split("\n")
+      until segments.join.length == 0 do
+        english_array << "#{segments[0].slice!(0..1)}#{segments[1].slice!(0..1)}#{segments[2].slice!(0..1)}"
+      end
+      english_array.map! { |element| element = @braille_dict_hash[element]}
+    end
     return english_array.join
   end
 
