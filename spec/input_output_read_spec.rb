@@ -105,7 +105,7 @@ describe InputOutputRead do
     it 'can translate and write in one method containing all set up' do
       io_read = InputOutputRead.new('braille_long.txt', 'original_message.txt')
       io_read.run_braille
-      new_file = File.open(@io_read.outgoing_file)
+      new_file = File.open(io_read.outgoing_file)
       new_file_contents = new_file.read
       new_file.close
       expect(new_file_contents).to eq("there you are sweetheart sorry im late i was looking everywhere for you")
