@@ -45,5 +45,12 @@ describe InputOutputRead do
       expect(@io_read.incoming_text).to eq("00\n.0\n..")
       expect(@io_read.translate_incoming_braille).to eq("d")
     end
+    it 'can write translated braille in english in new file' do
+      @io_read.write_braille_translation
+      new_file = File.open(@io_read.outgoing_file)
+      new_file_contents = new_file.read
+      new_file.close
+      expect(new_file_contents).to eq("d")
+    end
   end
 end
