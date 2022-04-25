@@ -1,14 +1,16 @@
 require_relative '../lib/input_output'
+require_relative '../lib/input_output_read'
 require 'CSV'
 require_relative '../lib/initializable'
 
 class Translator
   include Initializable
-  attr_reader :dictionary, :dictionary_hash, :translated_hash
+  attr_reader :dictionary, :dictionary_hash, :braille_dict_hash, :translated_hash
 
   def initialize(dictionary)
     @dictionary = dictionary
     @dictionary_hash = update_hash
+    @braille_dict_hash = braille_hash
     @translated_hash = {}
 
   end
@@ -18,7 +20,7 @@ class Translator
     Translator.new(dictionary)
   end
 
-  def translate(text_to_translate)#if statement for empty hash, and then to shovel into existing
+  def translate(text_to_translate)
     text_to_translate.each_char do |char|
       if @translated_hash == {}
         @translated_hash[:top] = @dictionary_hash[char][:top]
