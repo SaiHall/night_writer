@@ -96,4 +96,13 @@ describe Translator do
       expect(@translator.translate_braille("00.0..")).to eq("d")
     end
   end
+  context "Translate multiple characters from braille to english" do
+    before(:each) do
+      @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
+    end
+    it 'can properly segment and translate braille into english' do
+      example = ".00.0....00.0.0.00..0.0.0.00\n0000.0..00.00.0..0..0..0...0\n0...........0.0.00........0."
+      expect(@translator.translate_incoming_braille(example)).to eq("the jelly bean")
+    end
+  end
 end
