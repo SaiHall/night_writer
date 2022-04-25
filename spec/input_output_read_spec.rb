@@ -34,4 +34,12 @@ describe InputOutputRead do
       expect(@io_read.return_message).to eq("Created 'original_message.txt' containing 14 characters.")
     end
   end
+  context 'Create dictionary for braille to english' do
+    before(:each) do
+        @io_read = InputOutputRead.new('braille.txt', 'original_message.txt')
+    end
+    it 'has a translator' do
+      expect(@io_read.translator).to be_a(Translator)
+    end
+  end
 end

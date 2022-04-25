@@ -45,6 +45,7 @@ describe Initializable do
   end
 
   it 'can create another dictionary for braille to english' do
+    @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
     expected = {"0....."=>"a",
       "0.0..."=>"b",
       "00...."=>"c",
