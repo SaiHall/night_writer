@@ -35,6 +35,12 @@ class Translator
     return @translated_hash
   end
 
+  def translate_braille(character_to_translate)
+    english_array = []
+    english_array << @braille_dict_hash[character_to_translate]
+    return english_array.join
+  end
+
   def format
     @translated_hash.each do |key, value|
       @translated_hash[key] = value + "\n"
