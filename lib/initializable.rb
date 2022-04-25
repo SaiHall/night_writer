@@ -15,4 +15,12 @@ module Initializable
     end
     return dictionary_hash
   end
+
+  def braille_hash
+    braille_dict_hash = {}
+    @dictionary.each do |row|
+      braille_dict_hash[row[:braille]] = row[:character]
+    end
+    return braille_dict_hash
+  end
 end
