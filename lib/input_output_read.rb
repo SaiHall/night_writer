@@ -24,7 +24,7 @@ class InputOutputRead
   end
 
   def translate_incoming_braille
-    @translator.translate_braille(@incoming_text.delete("\n"))
+    @translator.translate_braille(@incoming_text)
   end
 
   def set_outgoing_text(text_to_set)
