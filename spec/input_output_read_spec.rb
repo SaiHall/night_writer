@@ -54,6 +54,7 @@ describe InputOutputRead do
     end
 
     it 'can write translated braille in english in new file' do
+      @io_read.set_outgoing_text(@io_read.translate_incoming_braille)
       @io_read.write_braille_translation
       new_file = File.open(@io_read.outgoing_file)
       new_file_contents = new_file.read
