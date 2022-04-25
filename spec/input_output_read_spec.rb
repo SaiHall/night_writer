@@ -38,13 +38,21 @@ describe InputOutputRead do
     before(:each) do
         @io_read = InputOutputRead.new('braille_one_char.txt', 'original_message.txt')
     end
+
     it 'has a translator' do
       expect(@io_read.translator).to be_a(Translator)
     end
+
     it 'can translate a character from a read file' do
       expect(@io_read.incoming_text).to eq("00\n.0\n..")
       expect(@io_read.translate_incoming_braille).to eq("d")
     end
+
+    it 'can set outgoing text' do
+      @io_read.set_outgoing_text(@io_read.translate_incoming_braille)
+      expect(@io_read.outgoing_text).to eq("d")
+    end
+
     it 'can write translated braille in english in new file' do
       @io_read.write_braille_translation
       new_file = File.open(@io_read.outgoing_file)
