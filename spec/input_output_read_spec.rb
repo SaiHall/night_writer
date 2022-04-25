@@ -87,8 +87,28 @@ describe InputOutputRead do
     before(:each) do
         @io_read = InputOutputRead.new('braille_long.txt', 'original_message.txt')
     end
+
     it 'can translate more than 40 characters' do
       expect(@io_read.translate_incoming_braille).to eq("there you are sweetheart sorry im late i was looking everywhere for you")
+    end
+
+    it 'can write translated long braile to a file in english' do
+      @io_read.set_outgoing_text(@io_read.translate_incoming_braille)
+      @io_read.write_braille_translation
+      new_file = File.open(@io_read.outgoing_file)
+      new_file_contents = new_file.read
+      new_file.close
+      expect(new_file_contents).to eq("there you are sweetheart sorry im late i was looking everywhere for you")
+    end
+  end
+  context 'Run testing' do
+    it 'can translate and write in one method containing all set up' do
+      io_read = InputOutputRead.new('braille_long.txt', 'original_message.txt')
+      io_read.run_braille
+      new_file = File.open(@io_read.outgoing_file)
+      new_file_contents = new_file.read
+      new_file.close
+      expect(new_file_contents).to eq("there you are sweetheart sorry im late i was looking everywhere for you")
     end
   end
 end
