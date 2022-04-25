@@ -43,6 +43,7 @@ class Translator
       segments = character_to_translate.split("\n")
       until segments.join.length == 0 do
         english_array << "#{segments[0].slice!(0..1)}#{segments[1].slice!(0..1)}#{segments[2].slice!(0..1)}"
+        segments.delete("")
       end
       english_array.map! { |element| element = @braille_dict_hash[element]}
     end
