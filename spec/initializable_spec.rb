@@ -37,7 +37,7 @@ describe Initializable do
     expect(@translator.dictionary_hash).to eq(expected)
   end
 
-  it 'set the contents, without \n, of an incoming file to incoming text' do
+  it 'set the contents, without \n, of an incoming file to incoming text in lowercase' do
     @input_output = InputOutput.new('message.txt', 'braille.txt')
     expect(@input_output.incoming_text).to eq("do not panic, this is merely a sample.")
     @input_output = InputOutput.new('message_one_char.txt', 'braille_one_char.txt')
