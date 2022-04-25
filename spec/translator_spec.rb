@@ -102,7 +102,7 @@ describe Translator do
     end
     it 'can properly segment and translate braille into english' do
       example = ".00.0....00.0.0.00..0.0.0.00\n0000.0..00.00.0..0..0..0...0\n0...........0.0.00........0."
-      expect(@translator.translate_incoming_braille(example)).to eq("the jelly bean")
+      expect(@translator.translate_braille(example)).to eq("the jelly bean")
     end
   end
 end
