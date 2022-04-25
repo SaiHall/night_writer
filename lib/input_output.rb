@@ -33,7 +33,6 @@ class InputOutput
   def run
     set_outgoing_text(translate_incoming)
     write_translation
-    puts return_message
   end
 
   def translate_incoming
