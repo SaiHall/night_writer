@@ -12,7 +12,6 @@ class InputOutputRead
     @incoming_text = read_incoming
     @translator = Translator.from_csv('./docs/eng_to_braille_dict.csv')
     @outgoing_text
-
   end
 
   def braille_count

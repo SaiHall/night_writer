@@ -13,38 +13,48 @@ describe Translator do
   it 'has readable attributes' do
     expect(@translator.dictionary).to be_an_instance_of(CSV::Table)
     expected = {" " => {top: "..", mid: "..", bot: ".."},
-       "a" => {top:"0.", mid: "..", bot: ".."},
-       "b" => {top:"0.", mid: "0.", bot: ".."},
-       "c" => {top:"00", mid: "..", bot: ".."},
-       "d" => {top:"00", mid: ".0", bot: ".."},
-       "e" => {top:"0.", mid: ".0", bot: ".."},
-       "f" => {top:"00", mid: "0.", bot: ".."},
-       "g" => {top:"00", mid: "00", bot: ".."},
-       "h" => {top:"0.", mid: "00", bot: ".."},
-       "i" => {top:".0", mid: "0.", bot: ".."},
-       "j" => {top:".0", mid: "00", bot: ".."},
-       "k" => {top:"0.", mid: "..", bot: "0."},
-       "l" => {top:"0.", mid: "0.", bot: "0."},
-       "m" => {top:"00", mid: "..", bot: "0."},
-       "n" => {top:"00", mid: ".0", bot: "0."},
-       "o" => {top:"0.", mid: ".0", bot: "0."},
-       "p" => {top:"00", mid: "0.", bot: "0."},
-       "q" => {top:"00", mid: "00", bot: "0."},
-       "r" => {top:"0.", mid: "00", bot: "0."},
-       "s" => {top:".0", mid: "0.", bot: "0."},
-       "t" => {top:".0", mid: "00", bot: "0."},
-       "u" => {top:".0", mid: "..", bot: "00"},
-       "v" => {top:"0.", mid: "0.", bot: "00"},
-       "w" => {top:".0", mid: "00", bot: ".0"},
-       "x" => {top:"00", mid: "..", bot: "00"},
-       "y" => {top:"00", mid: ".0", bot: "00"},
-       "z" => {top:"0.", mid: ".0", bot: "00"}}
+       "a" => {top: "0.", mid: "..", bot: ".."},
+       "b" => {top: "0.", mid: "0.", bot: ".."},
+       "c" => {top: "00", mid: "..", bot: ".."},
+       "d" => {top: "00", mid: ".0", bot: ".."},
+       "e" => {top: "0.", mid: ".0", bot: ".."},
+       "f" => {top: "00", mid: "0.", bot: ".."},
+       "g" => {top: "00", mid: "00", bot: ".."},
+       "h" => {top: "0.", mid: "00", bot: ".."},
+       "i" => {top: ".0", mid: "0.", bot: ".."},
+       "j" => {top: ".0", mid: "00", bot: ".."},
+       "k" => {top: "0.", mid: "..", bot: "0."},
+       "l" => {top: "0.", mid: "0.", bot: "0."},
+       "m" => {top: "00", mid: "..", bot: "0."},
+       "n" => {top: "00", mid: ".0", bot: "0."},
+       "o" => {top: "0.", mid: ".0", bot: "0."},
+       "p" => {top: "00", mid: "0.", bot: "0."},
+       "q" => {top: "00", mid: "00", bot: "0."},
+       "r" => {top: "0.", mid: "00", bot: "0."},
+       "s" => {top: ".0", mid: "0.", bot: "0."},
+       "t" => {top: ".0", mid: "00", bot: "0."},
+       "u" => {top: ".0", mid: "..", bot: "00"},
+       "v" => {top: "0.", mid: "0.", bot: "00"},
+       "w" => {top: ".0", mid: "00", bot: ".0"},
+       "x" => {top: "00", mid: "..", bot: "00"},
+       "y" => {top: "00", mid: ".0", bot: "00"},
+       "z" => {top: "0.", mid: ".0", bot: "00"},
+       "!" => {bot: "0.", mid: "00", top: ".."},
+       "#" => {bot: "00", mid: ".0", top: ".0"},
+       "'" => {bot: "0.", mid: "..", top: ".."},
+       "," => {bot: "..", mid: "0.", top: ".."},
+       "-" => {bot: "00", mid: "..", top: ".."},
+       "." => {bot: ".0", mid: "00", top: ".."},
+       "/" => {bot: "0.", mid: "..", top: ".0"},
+       ":" => {bot: "..", mid: "00", top: ".."},
+       "?" => {bot: "00", mid: "0.", top: ".."}}
     expect(@translator.dictionary_hash).to eq(expected)
     expect(@translator.translated_hash).to eq({})
   end
 
-  it 'can translate given character into braille' do
+  it 'can translate given character into braille, if it exists in the dictionary' do
     expect(@translator.translate("a")).to eq({top: "0.", mid: "..", bot: ".."})
+    expect(@translator.translate("6")).to eq({top: "0.", mid: "..", bot: ".."})
   end
 
   it 'can format braille to print on three lines' do
@@ -83,7 +93,16 @@ describe Translator do
         "00..00"=>"x",
         "00.000"=>"y",
         "0..000"=>"z",
-        "......"=>" "}
+        "......"=>" ",
+        "....0."=>"'",
+        ".0..0."=>"/",
+        "..00.."=>":",
+        "..0..."=>",",
+        "..0.00"=>"?",
+        "..00.0"=>".",
+        "..000."=>"!",
+        "....00"=>"-",
+        ".0.000"=> "#"}
       expect(@translator.braille_dict_hash).to eq(expected)
     end
   end

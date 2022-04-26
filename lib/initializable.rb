@@ -1,4 +1,3 @@
-
 module Initializable
 
   def read_incoming
