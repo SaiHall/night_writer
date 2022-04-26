@@ -12,7 +12,6 @@ class Translator
     @dictionary_hash = update_hash
     @braille_dict_hash = braille_hash
     @translated_hash = {}
-
   end
 
   def self.from_csv(path)
