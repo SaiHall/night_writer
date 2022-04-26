@@ -20,7 +20,11 @@ class Translator
   end
 
   def translate(text_to_translate)
+    text = ''
     text_to_translate.each_char do |char|
+      text << char if !@dictionary_hash[char].nil?
+    end
+    text.each_char do |char|
       if @translated_hash == {}
         @translated_hash[:top] = @dictionary_hash[char][:top]
         @translated_hash[:mid] = @dictionary_hash[char][:mid]
