@@ -24,12 +24,6 @@ class InputOutput
     @outgoing_text = set_to_text
   end
 
-  def write
-    outgoing = File.open(@outgoing_file, "w")
-    outgoing.write(@outgoing_text)
-    outgoing.close
-  end
-
   def run
     set_outgoing_text(translate_incoming)
     write_translation

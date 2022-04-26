@@ -40,14 +40,6 @@ describe InputOutput do
       expect(@input_output.outgoing_text).to eq(@input_output.incoming_text)
       expect(@input_output.outgoing_text).to eq("do not panic, this is merely a sample.")
     end
-
-    it 'can write outgoing contents to a new file' do
-      @input_output.write
-      new_file = File.open(@input_output.outgoing_file)
-      new_file_contents = new_file.read
-      new_file.close
-      expect(new_file_contents).to eq("do not panic, this is merely a sample.")
-    end
   end
 
   context 'translating output text' do
