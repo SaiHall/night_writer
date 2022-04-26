@@ -28,11 +28,6 @@ describe InputOutput do
     it 'Can produce the desired message' do
         expect(@input_output.return_message).to eq("Created 'message_repeat.txt' containing 38 characters")
     end
-
-    it 'see all methods in run, and print a correct response' do #Using a stub to make sure all previous methods are visible to .run method- removing the CLI portion
-        allow(@input_output).to receive(:run).and_return("Created '#{@input_output.outgoing_file}' containing #{@input_output.char_count} characters")
-        expect(@input_output.run).to eq("Created 'message_repeat.txt' containing 38 characters")
-    end
   end
 
   context 'output' do
