@@ -52,8 +52,9 @@ describe Translator do
     expect(@translator.translated_hash).to eq({})
   end
 
-  it 'can translate given character into braille' do
+  it 'can translate given character into braille, if it exists in the dictionary' do
     expect(@translator.translate("a")).to eq({top: "0.", mid: "..", bot: ".."})
+    expect(@translator.translate("6")).to eq({top: "0.", mid: "..", bot: ".."})
   end
 
   it 'can format braille to print on three lines' do
